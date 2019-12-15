@@ -4,7 +4,7 @@ import { initialState } from './initialState';
 export const cakeReducer = (state = initialState.cake, action) => {
   switch (action.type) {
     case BUY_CAKE:
-      return { ...state, numberOfCakes: state.numberOfCakes - 1 };
+      return { ...state, numberOfCakes: state.numberOfCakes - action.payload };
     default: {
       return state;
     }
