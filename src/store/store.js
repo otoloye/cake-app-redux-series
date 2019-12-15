@@ -1,7 +1,11 @@
-import { createStore } from 'redux';
-import { cakeReducer } from '../reducer/cakeReducer';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { userReducer } from '../reducer/userReducer';
+import thunk from 'redux-thunk';
 
 export const store = createStore(
-  cakeReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  userReducer,
+  compose(
+    applyMiddleware(thunk),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
 );
