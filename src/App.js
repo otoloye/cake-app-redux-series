@@ -1,26 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
 import './App.css';
+import { buyCake } from './actions/cakeActions';
 
-function App() {
+function App(props) {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h2>Number of Cakes in store -{props.numberOfCakes}</h2>
+      <button onClick={props.buyCake}>Buy Cake</button>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    numberOfCakes: state.numberOfCakes
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    buyCake: () => dispatch(buyCake())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
