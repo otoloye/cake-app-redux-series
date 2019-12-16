@@ -3,24 +3,25 @@ import { connect } from 'react-redux';
 import './App.css';
 import { fetchUsers } from './actions/userActions';
 
-function App({ userData, fetchUsers }) {
+function App({ users, loading, error, fetchUsers }) {
   useEffect(() => {
     fetchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="App">
-      {userData.loading ? (
+      {loading ? (
         <h2>Loading</h2>
-      ) : userData.error ? (
-        <h2>{userData.error}</h2>
+      ) : error ? (
+        <h2>{error}</h2>
       ) : (
         <div>
           <h2>User List</h2>
           <div>
-            {userData &&
-              userData.users &&
-              userData.users.map(user => <p>{user.name}</p>)}
+            {users.map(user => (
+              <p key={user.id}>{user.name}</p>
+            ))}
           </div>
         </div>
       )}
@@ -28,9 +29,11 @@ function App({ userData, fetchUsers }) {
   );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ users, loading, error }) => {
   return {
-    userData: state
+    users,
+    loading,
+    error
   };
 };
 
